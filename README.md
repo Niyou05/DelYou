@@ -1,17 +1,44 @@
-# _liverily_
+# DelYou 🚀
 
-A new Flutter project.
+DelYou is a delivery application designed to make local deliveries faster, easier, and more accessible.
 
-## Getting Started
+## 📱 About the Project
 
-This project is a starting point for a Flutter application.
+DelYou is a mobile delivery platform that connects customers with delivery couriers, allowing users to request deliveries between different pickup and drop-off locations.
 
-A few resources to get you started if this is your first Flutter project:
+The project is currently being developed as an MVP, with a focus on a single city.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## ✨ Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 📦 Create delivery requests
+- 📍 Select pickup and drop-off locations
+- 🛵 Delivery by couriers
+- 🗺️ Map integration
+- 👤 Customer and courier options
+- 📱 Mobile application
+- 🚀 Designed for local delivery services
+
+## 🛠️ Technologies
+
+- Flutter
+- Dart
+- Google Maps API
+- Git & GitHub
+
+## 🎯 Project Goal
+
+The goal of DelYou is to provide a simple and efficient local delivery experience for customers and couriers.
+
+## 🚧 Project Status
+
+> Currently under development — MVP
+
+## 👨‍💻 Author
+
+**Niyou**
+
+GitHub: https://github.com/Niyou05
+
+## 📄 License
+
+This project is currently for development and educational purposes.
