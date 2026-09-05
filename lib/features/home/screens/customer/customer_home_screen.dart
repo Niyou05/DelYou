@@ -1,3 +1,4 @@
+import 'package:DelYou/features/delivery/screens/create_delivery_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -88,7 +89,12 @@ borderRadius: BorderRadius.circular(16),
 child: InkWell(
 borderRadius: BorderRadius.circular(10),
     onTap: () {
-      // Create Delivery
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context)  => const CreateDeliveryScreen(),
+        ),
+      );
     },
 
 
