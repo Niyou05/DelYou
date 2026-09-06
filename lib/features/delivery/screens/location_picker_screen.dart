@@ -104,7 +104,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                   children: [
                     Icon(
                       Icons.map_outlined,
-                      size: 55,
+                      size: 65,
                       color: Colors.grey,
                     ),
                     SizedBox(height: 10),

@@ -10,7 +10,8 @@ class CreateDeliveryScreen extends StatefulWidget {
 
 class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
   int selectedVehicle = 0;
-
+  int selectedPackageSize = 0;
+  int selectedDeliveryTime = 0;
   String? pickupLocation;
   String? destinationLocation;
 
@@ -201,6 +202,212 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
 
             const SizedBox(height: 30),
 
+            const Text(
+              "package details",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+           ),
+
+            const SizedBox(height: 15),
+
+            TextField(
+             decoration: InputDecoration(
+              hintText: 'what are you sending?',
+              prefixIcon: const Icon(Icons.inventory_2_outlined),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide.none,
+
+              ),
+             ), 
+            ),
+
+            const SizedBox(height:20),
+
+            const Text(
+            'package size',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 12),
+
+            Row(
+
+             children: [
+
+              Expanded(
+                child:_ChoiceButton(title: "small", isSelected: selectedPackageSize ==0,
+                 onTap: (){
+                  selectedPackageSize=0;
+
+                 }), 
+               ),
+
+                const SizedBox(height: 10),
+
+
+
+              Expanded(
+                child:_ChoiceButton(title: "medium", isSelected: selectedPackageSize ==1,
+                 onTap: (){
+                  selectedPackageSize=1;
+
+                 }), 
+               ),
+
+                 const SizedBox(height: 10),
+
+
+
+              Expanded(
+                child:_ChoiceButton(title: "large", isSelected: selectedPackageSize ==2,
+                 onTap: (){
+                  selectedPackageSize=2;
+
+                 }), 
+               ),
+ ],    
+            ),
+
+           const SizedBox(height: 20),
+
+TextField(
+  keyboardType: TextInputType.number,
+  decoration: InputDecoration(
+    hintText: 'Weight(optional)',
+    prefixIcon: const Icon(Icons.scale_outlined),
+    suffixText: 'kg',
+    filled: true,
+    fillColor: Colors.white,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide.none,
+    ),
+  ),
+),
+           
+           
+           const SizedBox(height: 30),
+
+const Text(
+  'Additional instructions(optional)',
+  style: TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.bold,
+  ),
+),
+
+const SizedBox(height: 15),
+
+TextField(
+  maxLines: 4,
+  decoration: InputDecoration(
+    hintText: 'Any special instructions for the driver?',
+    alignLabelWithHint: true,
+    filled: true,
+    fillColor: Colors.white,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide.none,
+    ),
+  ),
+),
+
+const SizedBox(height: 30),
+
+const Text(
+  'Recipient information',
+  style: TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.bold,
+  ),
+),
+
+const SizedBox(height: 15),
+
+TextField(
+  decoration: InputDecoration(
+    hintText: 'Recipient name',
+    prefixIcon: const Icon(Icons.person_outline),
+    filled: true,
+    fillColor: Colors.white,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide.none,
+    ),
+  ),
+),
+
+const SizedBox(height: 12),
+
+TextField(
+  keyboardType: TextInputType.phone,
+  decoration: InputDecoration(
+    hintText: 'Recipient phone number',
+    prefixIcon: const Icon(Icons.phone_outlined),
+    filled: true,
+    fillColor: Colors.white,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide.none,
+    ),
+  ),
+),
+
+const SizedBox(height: 30),
+
+const Text(
+  'Delivery time',
+  style: TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.bold,
+  ),
+),
+
+const SizedBox(height: 15),
+
+Row(
+  children: [
+    Expanded(
+      child: OutlinedButton.icon(
+        onPressed: () {},
+        icon: const Icon(Icons.flash_on_outlined),
+        label: const Text('ASAP'),
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
+    ),
+
+    const SizedBox(width: 12),
+
+    Expanded(
+      child: OutlinedButton.icon(
+        onPressed: () {},
+        icon: const Icon(Icons.schedule_outlined),
+        label: const Text('Schedule'),
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
+    ),
+  ],
+),
+
+            const SizedBox(height: 30),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -283,6 +490,10 @@ class _LocationField extends StatelessWidget {
     required this.title,
     required this.hint,
     required this.onTap,
+ 
+ 
+ 
+ 
   });
 
   @override
@@ -341,6 +552,51 @@ class _LocationField extends StatelessWidget {
         ),
       ),
     );
+ 
   }
 }
 
+class _ChoiceButton extends StatelessWidget {
+  final String title;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _ChoiceButton({
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? const Color(0xFF0B7A4B)
+              : Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: isSelected
+                ? const Color(0xFF0B7A4B)
+                : Colors.grey.shade300,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: isSelected
+                  ? Colors.white
+                  : Colors.black87,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
