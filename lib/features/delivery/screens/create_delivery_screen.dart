@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'location_picker_screen.dart';
+import '../screens/review_delivery_screen.dart';
+
 class CreateDeliveryScreen extends StatefulWidget {
   const CreateDeliveryScreen({super.key});
 
@@ -9,13 +11,20 @@ class CreateDeliveryScreen extends StatefulWidget {
 }
 
 class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
+   
+final packageDescriptionController = TextEditingController();
+final weightController = TextEditingController();
+final instructionsController = TextEditingController();
+final recipientNameController = TextEditingController();
+final recipientPhoneController = TextEditingController(); 
+  
   int selectedVehicle = 0;
   int selectedPackageSize = 0;
   int selectedDeliveryTime = 0;
   String? pickupLocation;
   String? destinationLocation;
 
-  final List<Map<String, dynamic>> vehicles = [
+final List<Map<String, dynamic>> vehicles = [
     {
       'name': 'Motorcycle',
       'icon': Icons.two_wheeler,
@@ -83,7 +92,7 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
           children: [
             const Text(
               'Where are we going?',
-              style: TextStyle(
+               style: TextStyle(
                 fontSize: 27,
                 fontWeight: FontWeight.bold,
               ),
@@ -213,8 +222,9 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
             const SizedBox(height: 15),
 
             TextField(
-             decoration: InputDecoration(
-              hintText: 'what are you sending?',
+             controller:packageDescriptionController,
+             decoration: InputDecoration(        
+             hintText: 'what are you sending?',
               prefixIcon: const Icon(Icons.inventory_2_outlined),
               filled: true,
               fillColor: Colors.white,
@@ -245,7 +255,9 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
               Expanded(
                 child:_ChoiceButton(title: "small", isSelected: selectedPackageSize ==0,
                  onTap: (){
-                  selectedPackageSize=0;
+                 setState(() {
+                   selectedPackageSize=0;
+                 }); 
 
                  }), 
                ),
@@ -257,8 +269,10 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
               Expanded(
                 child:_ChoiceButton(title: "medium", isSelected: selectedPackageSize ==1,
                  onTap: (){
-                  selectedPackageSize=1;
-
+                  setState(() {
+                 selectedPackageSize=1;   
+                  });
+                  
                  }), 
                ),
 
@@ -269,7 +283,10 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
               Expanded(
                 child:_ChoiceButton(title: "large", isSelected: selectedPackageSize ==2,
                  onTap: (){
-                  selectedPackageSize=2;
+                  setState(() {
+                    selectedPackageSize=2;
+                  });
+                  
 
                  }), 
                ),
@@ -279,6 +296,7 @@ class _CreateDeliveryScreenState extends State<CreateDeliveryScreen> {
            const SizedBox(height: 20),
 
 TextField(
+controller: weightController, 
   keyboardType: TextInputType.number,
   decoration: InputDecoration(
     hintText: 'Weight(optional)',
@@ -307,6 +325,7 @@ const Text(
 const SizedBox(height: 15),
 
 TextField(
+  controller: instructionsController,
   maxLines: 4,
   decoration: InputDecoration(
     hintText: 'Any special instructions for the driver?',
@@ -333,6 +352,7 @@ const Text(
 const SizedBox(height: 15),
 
 TextField(
+  controller: recipientNameController,
   decoration: InputDecoration(
     hintText: 'Recipient name',
     prefixIcon: const Icon(Icons.person_outline),
@@ -348,6 +368,7 @@ TextField(
 const SizedBox(height: 12),
 
 TextField(
+  controller: recipientPhoneController,
   keyboardType: TextInputType.phone,
   decoration: InputDecoration(
     hintText: 'Recipient phone number',
@@ -451,7 +472,28 @@ Row(
               width: double.infinity,
               height: 55,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                   builder: (context) => ReviewDeliveryscreen( pickupLocation: pickupLocation,
+        destinationLocation: destinationLocation,
+        vehicle: vehicles[selectedVehicle]['name'],
+        vehiclePrice: vehicles[selectedVehicle]['price'],
+        packageDescription: packageDescriptionController.text,
+        packageSize: selectedPackageSize == 0
+            ? 'Small'
+            : selectedPackageSize == 1
+                ? 'Medium'
+                : 'Large',
+        weight: weightController.text,
+        instructions: instructionsController.text,
+        recipientName: recipientNameController.text,
+        recipientPhone: recipientPhoneController.text,
+        deliveryTime: 'ASAP',),
+                      ),
+                     );
+                        },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0B7A4B),
                   foregroundColor: Colors.white,
