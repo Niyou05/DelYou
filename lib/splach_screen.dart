@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
+import 'onboarding_screen.dart';
 import 'features/home/screens/customer/customer_home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const CustomerHomeScreen(),
+          builder: (context) => const OnboardingScreen(),
         ),
       );
     });
