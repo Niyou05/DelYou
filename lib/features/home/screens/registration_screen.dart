@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'customer/customer_home_screen.dart';
+import '../screens/verify_phone_screen.dart';
 
 
 
@@ -64,12 +64,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // Later we will send the phone number to the backend
     // and navigate to OTP verification.
 
-   Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const CustomerHomeScreen(),
+  Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(
+    builder: (context) => VerifyPhoneScreen(
+      phoneNumber: '+213 $phone',
     ),
-  );
+  ),
+);
   }
 
   void _showMessage(String message) {
