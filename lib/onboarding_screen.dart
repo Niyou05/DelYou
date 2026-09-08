@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/home/screens/customer/customer_home_screen.dart';
+import 'features/home/screens/registration_screen.dart';
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -43,7 +43,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const CustomerHomeScreen(),
+        builder: (context) => const RegistrationScreen(),
       ),
     );
   }
