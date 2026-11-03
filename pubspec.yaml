@@ -37,8 +37,11 @@ dependencies:
   flutter_riverpod: ^3.4.2
   go_router: ^18.0.0
   dio: ^5.11.0
+  flutter_native_splash: ^2.4.8
 
 dev_dependencies:
+ 
+ 
   flutter_test:
     sdk: flutter
 
@@ -53,6 +56,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+flutter_native_splash: ^2.4.8
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
