@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'features/home/screens/registration_screen.dart';
+import 'features/home/screens/login_home_screen.dart';
+
+
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -43,13 +46,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const RegistrationScreen(),
+        builder: (context) => const LoginScreen(),
       ),
     );
   }
 }
   void _skip() {
-    // سنربطها بـ Login لاحقًا
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen(),),
+    );
     debugPrint('Skip');
   }
 
