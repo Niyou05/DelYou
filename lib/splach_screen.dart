@@ -1,7 +1,8 @@
+
 import 'dart:async';
+import 'package:DelYou/features/home/screens/customer/customer_home_screen.dart';
 import 'package:flutter/material.dart';
-import 'onboarding_screen.dart';
-import 'features/home/screens/customer/customer_home_screen.dart';
+import 'features/Login/login_home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const OnboardingScreen(),
+          builder: (context) => const LoginHomePage(),
         ),
       );
     });

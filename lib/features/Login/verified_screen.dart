@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'verify_phone_screen.dart';
-import 'customer/customer_home_screen.dart';
+import '../home/screens/customer/customer_home_screen.dart';
 class VerifiedScreen extends StatelessWidget {
   const VerifiedScreen({super.key});
 

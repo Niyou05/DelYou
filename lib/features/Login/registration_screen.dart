@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
-import '../screens/verify_phone_screen.dart';
-
+import 'verify_phone_screen.dart';
 
 
 class RegistrationScreen extends StatefulWidget {
