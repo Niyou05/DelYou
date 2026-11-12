@@ -2,6 +2,11 @@
 import 'package:DelYou/features/delivery/screens/create_delivery_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:DelYou/features/delivery/screens/create_delivery_screen.dart';
+import 'package:DelYou/features/Traking/customer_traking_screen.dart';
+import 'package:DelYou/features/profile/customer_profile_screen.dart';
+
+
+
 
 // ================= COLORS =================
 
@@ -42,8 +47,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F7),
-
+  backgroundColor: const Color(0xFFFFF3E0),
+  extendBody: true,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -969,11 +974,11 @@ Widget _buildBottomNavigation() {
       height: 68,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(22),
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFFF9800).withOpacity(0.15),
+            color: const Color.fromARGB(255, 246, 123, 0).withOpacity(0.15),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
@@ -1021,7 +1026,7 @@ Widget _buildBottomNavigation() {
             ),
           ),
 
-          _buildNavItem(Icons.notifications_none_rounded, 'Activity', 2),
+          _buildNavItem(Icons.track_changes, 'track', 2),
           _buildNavItem(Icons.person_outline_rounded, 'Profile', 3),
         ],
       ),
@@ -1040,10 +1045,29 @@ Widget _buildNavItem(IconData icon, String title, int index) {
           selectedIndex = index;
         });
 
-        if (index != 0) {
-          selectService(title);
-        }
-      },
+        if (index == 2) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const CustomerTrackingScreen(),
+    ),
+  );
+} //Tracking
+
+else if (index == 3) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CustomerProfileScreen(),
+      ),
+    );
+  } // Profile
+
+
+ else if (index != 0) {
+  selectService(title);
+}
+      }, //No actions
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         margin: const EdgeInsets.symmetric(horizontal: 2),
