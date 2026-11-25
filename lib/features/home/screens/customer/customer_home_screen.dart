@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:DelYou/features/delivery/screens/create_delivery_screen.dart';
 import 'package:DelYou/features/Traking/customer_traking_screen.dart';
 import 'package:DelYou/features/profile/customer_profile_screen.dart';
+import 'package:DelYou/features/Cart/custome_cart_screen.dart';
 
-
-
-
-// ================= COLORS =================
+// *** colors *** //
 
 const Color primaryGreen = Color(0xFF006837);
+const Color darkGreen = Color(0xFF004B2B);
 const Color lightGreen = Color(0xFFE8F5EC);
-const Color pageBackground = Color.fromARGB(255, 145, 155, 139);
+const Color softGreen = Color(0xFFDDF5E7);
+const Color pageBackground = Color(0xFFF7FAF8);
+const Color textDark = Color(0xFF17211B);
+const Color textGrey = Color(0xFF7B8580);
 
-// ================= CUSTOMER HOME SCREEN =================
+
+
+// *** CUSTOMER HOME SCREEN *** //
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
@@ -27,7 +31,7 @@ class CustomerHomeScreen extends StatefulWidget {
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   int selectedIndex = 0;
 
-  // ================= SERVICE SELECTION =================
+  // *** SERVICE SELECTION *** //
 
   void selectService(String service) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -42,301 +46,324 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     );
   }
 
-  // ================= BUILD =================
+ 
+  // *** Build *** //
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-  backgroundColor: const Color(0xFFFFF3E0),
-  extendBody: true,
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFF9800),
-              Color(0xFFFFF3E0),
-            ],
-          ),
-        ),
 
-        child: SafeArea(
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
 
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(
-                  20,
-                  14,
-                  20,
-                  110,
-                ),
 
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate([
-
-                    // HEADER
-                    _buildHeader(),
-
-                    const SizedBox(height: 18),
-
-                    // SEARCH BAR
-                    _buildSearchBar(),
-
-                    const SizedBox(height: 22),
-
-                    // HERO BANNER
-                    _buildHeroBanner(),
-
-                    const SizedBox(height: 25),
-
-                    // DELIVERY OPTIONS
-                    _buildServicesSection(),
-
-                    const SizedBox(height: 25),
-
-                    // MARKETPLACE CATEGORIES
-                    _buildMarketplaceSection(),
-
-                    const SizedBox(height: 27),
-
-                    // PROMOTION
-                    _buildPromotionCard(),
-
-                    const SizedBox(height: 25),
-
-                    // POPULAR PLACES
-                    _buildPopularNearYou(),
-
-                    const SizedBox(height: 25),
-
-                    // RECENT ACTIVITY
-                    _buildRecentActivity(),
-
-                  ]),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-
-      bottomNavigationBar: _buildBottomNavigation(),
-    );
-  }
-
-  // ================= HEADER =================
-
-  Widget _buildHeader() {
-    return Container(
-      width: double.infinity,
-
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 18,
-      ),
-
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: pageBackground,
+    extendBody: true,
+    body: Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFFFF9800),
-            Color(0xFFFFF3E0),
+            Color(0xFFE8F5EC),
+            Color(0xFFF7FAF8),
+            Colors.white,
           ],
         ),
+      ),
+      child: SafeArea(
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(
+                18, 14, 18, 110,
+              ),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  _buildHeader(),
+                  const SizedBox(height: 20),
 
-        borderRadius: BorderRadius.all(
-          Radius.circular(25),
+                  _buildSearchBar(),
+                  const SizedBox(height: 22),
+
+                  _buildHeroBanner(),
+                  const SizedBox(height: 25),
+
+                  _buildServicesSection(),
+                  const SizedBox(height: 25),
+
+                  _buildMarketplaceSection(),
+                  const SizedBox(height: 25),
+
+                  _buildPromotionCard(),
+                  const SizedBox(height: 25),
+
+                  _buildPopularNearYou(),
+                  const SizedBox(height: 25),
+
+                  _buildRecentActivity(),
+                ]),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    bottomNavigationBar: _buildBottomNavigation(),
+  );
+}
+ 
+
+ 
+                                              // *** HEADER *** //
+
+
+
+
+Widget _buildHeader() {
+  return Row(
+    children: [
+      Container(
+        height: 48,
+        width: 48,
+        decoration: const BoxDecoration(
+          color: softGreen,
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(
+          Icons.delivery_dining_rounded,
+          color: primaryGreen,
+          size: 28,
         ),
       ),
 
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 22,
-            backgroundColor: lightGreen,
-            backgroundImage: const AssetImage(
-              'assets/images/ss.jpg',
+      const SizedBox(width: 12),
+
+      const Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Delivery to',
+              style: TextStyle(
+                fontSize: 12,
+                color: textGrey,
+              ),
             ),
-            onBackgroundImageError: (_, __) {},
-            child: const SizedBox.shrink(),
-          ),
-
-          const SizedBox(width: 11),
-
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(height: 3),
+            Row(
               children: [
                 Text(
-                  'Hi, Good morning',
+                  'Batna, Algeria',
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white70,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: textDark,
                   ),
                 ),
+                SizedBox(width: 5),
+                Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  size: 19,
+                  color: primaryGreen,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
 
-                SizedBox(height: 3),
+      Container(
+        height: 46,
+        width: 46,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: IconButton(
+          onPressed: () => selectService('Notifications'),
+          icon: const Icon(
+            Icons.notifications_none_rounded,
+            color: primaryGreen,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+                                          
+                                          
+                                          
+                                          
+                                          // *** SEARCH BAR *** //
 
-                Text(
-                  'Hello Adam 👋',
+
+
+
+
+Widget _buildSearchBar() {
+  return Row(
+    children: [
+      Expanded(
+        child: Container(
+          height: 54,
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: primaryGreen.withOpacity(0.05),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: TextField(
+            textInputAction: TextInputAction.search,
+            onSubmitted: (value) {
+              if (value.trim().isNotEmpty) {
+                selectService('Search: $value');
+              }
+            },
+            decoration: InputDecoration(
+              hintText: 'Search for anything...',
+              hintStyle: TextStyle(
+                color: Colors.grey.shade400,
+                fontSize: 13,
+              ),
+              prefixIcon: const Icon(
+                Icons.search_rounded,
+                color: primaryGreen,
+              ),
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+      ),
+
+      const SizedBox(width: 10),
+
+      Container(
+        height: 54,
+        width: 54,
+        decoration: const BoxDecoration(
+          color: primaryGreen,
+          shape: BoxShape.circle,
+        ),
+        child: IconButton(
+          onPressed: () => selectService('Filters'),
+          icon: const Icon(
+            Icons.tune_rounded,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+                                      
+                                      
+                                      
+                                         // *** HERO BANNER *** //
+
+
+  
+
+
+
+Widget _buildHeroBanner() {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CreateDeliveryScreen(),
+        ),
+      );
+    },
+    child: Container(
+      height: 155,
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFFDDF5E7),
+            Color(0xFFB8E6CA),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'New Delivery',
                   style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+                    fontSize: 23,
+                    height: 1.1,
+                    fontWeight: FontWeight.w800,
+                    color: darkGreen,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Fast • Safe • Reliable',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: darkGreen,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: primaryGreen,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    'Send Package',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-
-          Material(
-            color: const Color(0xFF006837),
-            shape: const CircleBorder(),
-
-            child: IconButton(
-              onPressed: () => selectService('Notifications'),
-              icon: const Icon(
-                Icons.notifications_none_rounded,
-              ),
-              color: Colors.white,
-              iconSize: 24,
+          const SizedBox(width: 8),
+          const Expanded(
+            child: Icon(
+              Icons.delivery_dining_rounded,
+              size: 95,
+              color: primaryGreen,
             ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
-  // ================= SEARCH BAR =================
 
-  Widget _buildSearchBar() {
-    return Container(
-      height: 53,
+                            
+                      // *** DELIVERY OPTIONS *** //
 
-      padding: const EdgeInsets.symmetric(horizontal: 16),
 
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
 
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
 
-      child: TextField(
-        textInputAction: TextInputAction.search,
 
-        onSubmitted: (value) {
-          if (value.trim().isNotEmpty) {
-            selectService('Search: $value');
-          }
-        },
 
-        decoration: InputDecoration(
-          hintText: 'Search food, shops, products...',
 
-          hintStyle: TextStyle(
-            color: Colors.grey.shade500,
-            fontSize: 12,
-          ),
-
-          prefixIcon: const Icon(
-            Icons.search_rounded,
-            color: primaryGreen,
-          ),
-
-          border: InputBorder.none,
-        ),
-      ),
-    );
-  }
-
-  // ================= HERO BANNER =================
-
-  Widget _buildHeroBanner() {
-    return GestureDetector(
-      onTap: () => selectService('Black Friday offer'),
-
-      child: Container(
-        height: 165,
-        width: double.infinity,
-
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-
-          child: Stack(
-            fit: StackFit.expand,
-
-            children: [
-              Image.asset(
-                'assets/images/images.jfif',
-                fit: BoxFit.cover,
-              ),
-
-              Positioned(
-                right: 18,
-                bottom: 11,
-
-                child: ElevatedButton(
-                  onPressed: () =>
-                      selectService('Black Friday offer'),
-
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color.fromARGB(255, 3, 4, 3),
-
-                    foregroundColor: Colors.white,
-                    elevation: 2,
-
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-
-                  child: const Text(
-                    'Explore Now',
-
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ================= DELIVERY OPTIONS =================
 
   Widget _buildServicesSection() {
     return Column(
@@ -405,7 +432,15 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     );
   }
 
-  // ================= DELIVERY ITEM =================
+
+
+
+
+                           // *** DELIVERY ITEM *** //
+
+
+
+
 
   Widget _serviceItem(
     String title,
@@ -965,31 +1000,42 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     );
   }
 
+ 
+ 
+ 
   // ================= BOTTOM NAVIGATION =================
+
+
+
+
 
 Widget _buildBottomNavigation() {
   return SafeArea(
-    minimum: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+    minimum: const EdgeInsets.fromLTRB(18, 0, 18, 12),
     child: Container(
-      height: 68,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      height: 72,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(22),
+        color: darkGreen,
+        borderRadius: BorderRadius.circular(35),
         boxShadow: [
           BoxShadow(
-            color: const Color.fromARGB(255, 246, 123, 0).withOpacity(0.15),
+            color: primaryGreen.withOpacity(0.20),
             blurRadius: 20,
-            offset: const Offset(0, 5),
+            offset: const Offset(0, 7),
           ),
         ],
       ),
       child: Row(
         children: [
           _buildNavItem(Icons.home_rounded, 'Home', 0),
-          _buildNavItem(Icons.receipt_long_outlined, 'Orders', 1),
 
-          // CREATE BUTTON
+          _buildNavItem(
+            Icons.local_shipping_outlined,
+            'Track',
+            1,
+          ),
+
           Expanded(
             child: Center(
               child: GestureDetector(
@@ -1003,22 +1049,19 @@ Widget _buildBottomNavigation() {
                   );
                 },
                 child: Container(
-                  height: 52,
-                  width: 52,
+                  height: 54,
+                  width: 54,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFF9800),
+                    color: Colors.white,
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: primaryGreen.withOpacity(0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    border: Border.all(
+                      color: const Color(0xFFB8F000),
+                      width: 3,
+                    ),
                   ),
                   child: const Icon(
                     Icons.add_rounded,
-                    color: Colors.white,
+                    color: primaryGreen,
                     size: 32,
                   ),
                 ),
@@ -1026,77 +1069,98 @@ Widget _buildBottomNavigation() {
             ),
           ),
 
-          _buildNavItem(Icons.track_changes, 'track', 2),
-          _buildNavItem(Icons.person_outline_rounded, 'Profile', 3),
+          _buildNavItem(
+            Icons.shopping_bag_outlined,
+            'Cart',
+            2,
+          ),
+
+          _buildNavItem(
+            Icons.person_outline_rounded,
+            'Profile',
+            3,
+          ),
         ],
       ),
     ),
   );
 }
 
-// NAVIGATION ITEM
-Widget _buildNavItem(IconData icon, String title, int index) {
+Widget _buildNavItem(
+  IconData icon,
+  String title,
+  int index,
+) {
   final isSelected = selectedIndex == index;
 
   return Expanded(
     child: GestureDetector(
       onTap: () {
+        if (index == 0) {
+          setState(() {
+            selectedIndex = 0;
+          });
+          return;
+        }
+
         setState(() {
           selectedIndex = index;
         });
 
-        if (index == 2) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const CustomerTrackingScreen(),
-    ),
-  );
-} //Tracking
-
-else if (index == 3) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const CustomerProfileScreen(),
-      ),
-    );
-  } // Profile
-
-
- else if (index != 0) {
-  selectService(title);
-}
-      }, //No actions
+        if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const CustomerTrackingScreen(),
+            ),
+          );
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CartScreen(),
+            ),
+          );
+        } else if (index == 3) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const CustomerProfileScreen(),
+            ),
+          );
+        }
+      },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        margin: const EdgeInsets.symmetric(horizontal: 2),
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(vertical: 7),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFFFFE0B2)
+              ? Colors.white.withOpacity(0.13)
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
-              size: 19,
+              size: 21,
               color: isSelected
-                  ? const Color(0xFFFF9800)
-                  : Colors.grey.shade600,
+                  ? const Color(0xFFB8F000)
+                  : Colors.white70,
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 4),
             Text(
               title,
               style: TextStyle(
                 fontSize: 9,
-                fontWeight:
-                    isSelected ? FontWeight.w700 : FontWeight.w500,
-                color: isSelected
-                    ? Colors.black
-                    : Colors.grey.shade600,
+                fontWeight: isSelected
+                    ? FontWeight.bold
+                    : FontWeight.w500,
+                color: Colors.white,
               ),
             ),
           ],

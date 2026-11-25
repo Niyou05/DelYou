@@ -5,4 +5,10 @@ export interface CreateDeliveryDto {
   recipientPhone: string;
   packageDescription: string;
   notes?: string;
+  packageSize?: string;
+  weight?: string;
+  vehicle?: string;
+  price?: string;
+  deliveryTime?: string;
+  customerId?: string;
 }

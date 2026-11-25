@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'location_picker_screen.dart';
 import '../screens/review_delivery_screen.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
+import 'package:DelYou/features/map/screens/delivery_map_screen.dart';
+
 
 class CreateDeliveryScreen extends StatefulWidget {
   const CreateDeliveryScreen({super.key});
@@ -42,39 +44,39 @@ final List<Map<String, dynamic>> vehicles = [
     },
   ];
 
-  Future<void> _selectPickup() async {
-    final result = await Navigator.push<String>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LocationPickerScreen(
-          title: 'Pickup Location',
-        ),
-      ),
-    );
 
-    if (result != null) {
-      setState(() {
-        pickupLocation = result;
-      });
-    }
+Future<void> _selectPickup() async {
+  final result = await Navigator.push<LatLng>(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const DeliveryMapScreen(),
+    ),
+  );
+
+  if (result != null) {
+    setState(() {
+      pickupLocation =
+          '${result.latitude}, ${result.longitude}';
+    });
   }
+}
 
-  Future<void> _selectDestination() async {
-    final result = await Navigator.push<String>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LocationPickerScreen(
-          title: 'Destination',
-        ),
-      ),
-    );
+Future<void> _selectDestination() async {
+  final result = await Navigator.push<LatLng>(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const DeliveryMapScreen(),
+    ),
+  );
 
-    if (result != null) {
-      setState(() {
-        destinationLocation = result;
-      });
-    }
+  if (result != null) {
+    setState(() {
+      destinationLocation =
+          '${result.latitude}, ${result.longitude}';
+    });
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

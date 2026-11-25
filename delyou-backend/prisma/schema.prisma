@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CUSTOMER
+  COURIER
+  ADMIN
+}
+
+enum DeliveryStatus {
+  PENDING
+  ASSIGNED
+  PICKED_UP
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  phone     String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customerDeliveries Delivery[] @relation("CustomerDeliveries")
+  assignedDeliveries Delivery[] @relation("CourierDeliveries")
+  sessions           Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("sessions")
+}
+
+model Delivery {
+  id                 String          @id @default(uuid())
+  customerId         String?
+  customer           User?           @relation("CustomerDeliveries", fields: [customerId], references: [id])
+  courierId          String?
+  courier            User?           @relation("CourierDeliveries", fields: [courierId], references: [id])
+  pickupAddress      String
+  deliveryAddress    String
+  recipientName      String
+  recipientPhone     String
+  packageDescription String
+  packageSize        String?
+  weight             String?
+  vehicle            String?
+  price              String?
+  notes              String?
+  deliveryTime       String?
+  status             DeliveryStatus  @default(PENDING)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  events DeliveryEvent[]
+
+  @@map("deliveries")
+}
+
+model DeliveryEvent {
+  id         String          @id @default(uuid())
+  deliveryId String
+  delivery   Delivery        @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  status     DeliveryStatus
+  note       String?
+  createdAt  DateTime        @default(now())
+
+  @@map("delivery_events")
+}
